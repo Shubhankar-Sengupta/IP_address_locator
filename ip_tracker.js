@@ -61,7 +61,7 @@ var greenIcon = L.icon({
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
 
-var marker = L.marker([51.5, -0.09], {icon: greenIcon}).addTo(map);
+var marker = L.marker([51.5, -0.09], {icon: greenIcon, draggable:true}).addTo(map);
 
 var popup = L.popup();
 
