@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+/*highest level of the parent*/
+
+:root {
+    font-family: 'Rubik', sans-serif;
+}
+
+*::before, *::after, * {
+    margin:0;
+}
+
+
+h1 {
+    text-align: center;
+    color: #fff; 
+    font-weight: 500;  
+    font-size: 2em;
+}
+
+.row {
+    justify-content:center;
+}
+
+
+.first-section {
+    display: flex;
+    flex-direction: column;
+    background: url('./images/pattern-bg.png');
+    background-size: 100% 100%;
+    min-height: 40vh;
+    position: relative;
+    justify-content: center;
+}
+
+.up-class span {
+   opacity: .5;
+   text-transform: uppercase;
+   font-weight: 700;
+}
+
+.input-group-append a, .input-group-append {
+    display: flex;
+}
+
+.input-group-text {
+    border: none;
+    background-color: #000;
+}
+
+.up-class {
+    position: absolute;
+    background-color: #fff;
+    bottom: 0;
+}
+
+.second-section {
+    min-height: 60vh;
+}
