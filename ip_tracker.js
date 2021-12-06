@@ -27,7 +27,7 @@ async function geoLocation() {
 
     ip.innerHTML = ip_addr;
     loc.innerHTML = region;
-    time.innerHTML = time_zone;
+    time.innerHTML = `UTC ${time_zone}`;
     is.innerHTML = isp;
 
     return [lat, lng]; // it is returned as a value of the Promise Object and we capture it with then() which accpets a callback.

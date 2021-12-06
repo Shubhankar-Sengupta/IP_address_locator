@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 
 /*highest level of the parent*/
 
@@ -28,16 +28,11 @@ h1 {
     flex-direction: column;
     background: url('./images/pattern-bg.png');
     background-size: 100% 100%;
-    min-height: 40vh;
+    min-height: 35vh;
     position: relative;
     justify-content: center;
 }
 
-.up-class span {
-   opacity: .5;
-   text-transform: uppercase;
-   font-weight: 700;
-}
 
 .input-group-append a, .input-group-append {
     display: flex;
@@ -51,9 +46,82 @@ h1 {
 .up-class {
     position: absolute;
     background-color: #fff;
-    bottom: 0;
+    bottom: -60px;
+    z-index: 1000; /* so that it is always ahead in the stacking context*/
+    align-self: center;
 }
 
 .second-section {
-    min-height: 60vh;
+    min-height: 65vh;
+}
+
+.card {
+   box-shadow: 5px 8px 10px rgba(0, 0, 0, .2);
+   flex-direction: row;
+   border-radius: .945em;
+}
+
+.one-of {
+    font-size: .75em;
+    text-transform: uppercase;
+    color: #2C2C2C;
+    font-weight: 700;
+    opacity: .5;
+    display: block;
+}
+
+.ip, .location,.timezone, .isp {
+    font-weight: 500;
+    font-size: 1.625em;
+    line-height: 1.154em;
+}
+
+
+.card-body > * {
+    display: inline-block;
+}
+
+
+
+@media screen and  (max-width:768px) {
+
+    .card {
+        flex-direction: column;
+        margin: 2em;
+        position: relative;
+        bottom: -120px;
+    }
+
+    .first-section {
+        min-height: 30vh;
+    }
+    
+    .second-section {
+        min-height: 70vh;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cntr-setting {
+        text-align: center;
+    }
+
+    .ip, .location,.timezone, .isp {
+        font-size: 1.25em;
+    }
+
+}
+
+@media (min-width:751.2px) and (max-width:1069px) {
+    
+    .card {
+        position: absolute;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        bottom: -150px;
+    }
 }
