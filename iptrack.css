@@ -30,11 +30,11 @@ h1 {
     background-size: 100% 100%;
     min-height: 35vh;
     position: relative;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 
-.input-group-append a, .input-group-append {
+.input-group-append button, .input-group-append {
     display: flex;
 }
 
@@ -81,6 +81,14 @@ h1 {
     display: inline-block;
 }
 
+.btn-1 {
+    padding: .15rem .005rem;
+}
+
+.leaflet-control-zoom {
+    display: none;
+}
+
 
 
 @media screen and  (max-width:768px) {
@@ -104,6 +112,11 @@ h1 {
 
     .ip, .location,.timezone, .isp {
         font-size: 1.25em;
+    }
+
+    .row {
+        margin-left: 0;
+        margin-right: 0;
     }
 
 }
