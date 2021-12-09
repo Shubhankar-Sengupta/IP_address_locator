@@ -23,20 +23,47 @@ btn.addEventListener('click', async (evt) => {
 
     const match_ip =  input.value.match(ipformat);
 
-    if (match_domain || match_ip) {
+    if (match_domain) {
 
-        alert("Great Job");
+        console.log(match_domain);
 
     }
 
-    else if (input.value === "") {
-        alert("Please enter something valid!!");
+    else if (match_ip) {
+
+        async function ip_func() {
+
+            const info = await axios.get(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T&ipAddress=${input.value}`); // gets converted into JS object automatically.
+
+            const lat = info.data.location.lat;
+            const lng = info.data.location.lng;
+
+
+            const ip_addr = info.data.ip;
+            const region = info.data.location.region;
+            const time_zone = info.data.location.timezone;
+            const isp = info.data.isp;
+
+            ip.innerHTML = ip_addr;
+            loc.innerHTML = region;
+            time.innerHTML = `UTC ${time_zone}`;
+            is.innerHTML = isp;
+
+            return [lat, lng];
+        }
+
+        ip_func();
+        
     }
 
-    else {
-        alert("You have entered an invalid Domain or IP address!");
-        return (false);
-    }
+        else if (input.value === "") {
+            alert("Please enter something valid!!");
+        }
+
+        else {
+            alert("You have entered an invalid Domain or IP address!");
+            return (false);
+        }
 
 
 });
