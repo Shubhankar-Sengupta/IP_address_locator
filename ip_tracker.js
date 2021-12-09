@@ -19,6 +19,8 @@ btn.addEventListener('click', async (evt) => {
 
     const domain_format =  new RegExp(/(^https:|http:)\/\/(www|[a-z]{1,}?)(\.[a-zA-Z-_$@+0-9]+)?\.([a-z]{2,3})$/, 'g');
 
+    //match method returns an array.
+
     const match_domain =  input.value.match(domain_format);
 
     const match_ip =  input.value.match(ipformat);
@@ -52,7 +54,16 @@ btn.addEventListener('click', async (evt) => {
             return [lat, lng];
         }
 
-        ip_func();
+        const val =  ip_func();
+
+        val.then((value) => {
+
+        const [a, b] = [...value]; // spreading the value inside an array and then deconstructing it into values of a and b.
+
+            console.log(map);
+        })
+
+        
         
     }
 
@@ -114,7 +125,12 @@ val.then((value) => {
     // it returns a map object itself so that we can chain on the methods like here we have setView() method with latitude, longitude and the zoom level.
 
     var map = L.map('map',
-        { preferCanvas: true, keyboard: false }
+        { 
+            keyboard: false, 
+            attributionControl:false,
+            zoomControl:false,
+            dragging:false
+        }
     )
         .setView([a, b], 13);
 
