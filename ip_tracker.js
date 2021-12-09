@@ -10,15 +10,14 @@ const input = document.querySelector('.input-group input');
 
 // two params that we enter fist is the search pattern and the second one is the flag that we will use and it will mostly be the global one hence g as a type string.
 
-const ipformat = new RegExp(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/, "g")
-
-const domain_format =  new RegExp(/^(https:|http:)\/\/(www|[a-z]{1,}?)(\.[a-zA-Z-_0-9]+)?\.([a-z]{2,3})$/, 'g');
-
-
 
 btn.addEventListener('click', async (evt) => {
 
     // input.value will be a string and match is a method that we can use on that string.
+
+    const ipformat = new RegExp(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/, "g")
+
+    const domain_format =  new RegExp(/(^https:|http:)\/\/(www|[a-z]{1,}?)(\.[a-zA-Z-_$@+0-9]+)?\.([a-z]{2,3})$/, 'g');
 
     const match_domain =  input.value.match(domain_format);
 
@@ -26,55 +25,7 @@ btn.addEventListener('click', async (evt) => {
 
     if (match_domain || match_ip) {
 
-        const all = geoLocation();
-
-        all.then((value) => {
-
-            const [a, b] = [...value];
-
-            var map = L.map('map',
-                { preferCanvas: true, keyboard: false }
-            )
-                .setView([a, b], 13);
-
-
-            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                maxZoom: 18,
-                id: 'mapbox/streets-v11',
-                tileSize: 512,
-                zoomOffset: -1,
-                accessToken: 'pk.eyJ1Ijoic2h1Ymhvc2VuIiwiYSI6ImNrd3FpbmNnZjA2bDQybm54c3pnNGg3NjEifQ._wepJJCubol0nCYzvEHjmg'
-            }).addTo(map);
-
-
-            var greenIcon = L.icon({
-                iconUrl: './images/icon-location.svg',
-                iconSize: [45, 56], // size of the icon
-                shadowSize: [50, 64], // size of the shadow
-                iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-                shadowAnchor: [4, 62],  // the same for the shadow
-                popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
-            });
-
-            var marker = L.marker([a, b], { icon: greenIcon }).addTo(map);
-
-            var popup = L.popup();
-
-            function onMapClick(e) {
-                popup // method chaining is happening here
-                    .setLatLng(e.latlng) // e is the evetn that happened and .latlng is the porperty on that event.
-                    .setContent("You clicked the map at " + e.latlng.toString())
-                    .openOn(map);
-            }
-
-            map.on('click', onMapClick);
-
-
-
-        }).catch((err) => {
-            console.log('An Unexpected Error has occured', err.isAxiosError)
-        })
+        alert("Great Job");
 
     }
 
