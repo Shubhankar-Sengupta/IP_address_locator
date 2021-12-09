@@ -12,12 +12,19 @@ const input = document.querySelector('.input-group input');
 
 const ipformat = new RegExp(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/, "g")
 
+const domain_format =  new RegExp(/^(https:|http:)\/\/(www|[a-z]{1,}?)(\.[a-zA-Z-_0-9]+)?\.([a-z]{2,3})$/, 'g');
+
+
 
 btn.addEventListener('click', async (evt) => {
 
     // input.value will be a string and match is a method that we can use on that string.
 
-    if (input.value.match(ipformat)) {
+    const match_domain =  input.value.match(domain_format);
+
+    const match_ip =  input.value.match(ipformat);
+
+    if (match_domain || match_ip) {
 
         const all = geoLocation();
 
@@ -76,7 +83,7 @@ btn.addEventListener('click', async (evt) => {
     }
 
     else {
-        alert("You have entered an invalid IP address!");
+        alert("You have entered an invalid Domain or IP address!");
         return (false);
     }
 
