@@ -33,38 +33,11 @@ btn.addEventListener('click', async (evt) => {
 
     else if (match_ip) {
 
-        async function ip_func() {
+        // async function ip_func() {
 
-            const info = await axios.get(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T&ipAddress=${input.value}`); // gets converted into JS object automatically.
-
-            const lat = info.data.location.lat;
-            const lng = info.data.location.lng;
-
-
-            const ip_addr = info.data.ip;
-            const region = info.data.location.region;
-            const time_zone = info.data.location.timezone;
-            const isp = info.data.isp;
-
-            ip.innerHTML = ip_addr;
-            loc.innerHTML = region;
-            time.innerHTML = `UTC ${time_zone}`;
-            is.innerHTML = isp;
-
-            return [lat, lng];
-        }
-
-        const val =  ip_func();
-
-        val.then((value) => {
-
-        const [a, b] = [...value]; // spreading the value inside an array and then deconstructing it into values of a and b.
-
-            console.log(map);
-        })
-
-        
-        
+        //     const info = await axios.get(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T&ipAddress=${input.value}`); // gets converted into JS object automatically.
+        // }
+    
     }
 
         else if (input.value === "") {
@@ -135,6 +108,8 @@ val.then((value) => {
         .setView([a, b], 13);
 
 
+   
+
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -166,7 +141,6 @@ val.then((value) => {
     }
 
     map.on('click', onMapClick);
-
 
 
 }).catch((err) => {
