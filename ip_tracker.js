@@ -6,6 +6,7 @@ const time = document.querySelector('.timezone');
 const is = document.querySelector('.isp');
 const input = document.querySelector('.input-group input');
 
+
 // regex format using the RegExp constructor we create a new object that we store in the ipformat variable.
 
 // two params that we enter fist is the search pattern and the second one is the flag that we will use and it will mostly be the global one hence g as a type string.
@@ -42,11 +43,12 @@ btn.addEventListener('click', async (evt) => {
 
         else if (input.value === "") {
             alert("Please enter something valid!!");
+            return false;
         }
 
         else {
             alert("You have entered an invalid Domain or IP address!");
-            return (false);
+            return false;
         }
 
 
