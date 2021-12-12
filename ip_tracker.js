@@ -89,28 +89,39 @@ async function geoLocation() {
 }
 
 
-const val = geoLocation();
-
-val.then((value) => {
-
-    const [a, b] = [...value]; // spreading the value inside an array and then deconstructing it into values of a and b.
+const lat_lng = geoLocation();
 
 
     // map is generated and as a second option I've passed second argument as options that contains an object literal and prevents the map to be dragged.
     // it returns a map object itself so that we can chain on the methods like here we have setView() method with latitude, longitude and the zoom level.
 
-    var map = L.map('map',
-        { 
-            keyboard: false, 
-            attributionControl:false,
-            zoomControl:false,
-            dragging:false
-        }
-    )
-        .setView([a, b], 13);
+    var map = L.map('map',{ zoomControl:false}).fitWorld();
+
+    map.locate({setView: true, maxZoom: 12});
+
+    
 
 
-   
+    function onLocationFound(e) {
+
+        var radius = e.accuracy;
+    
+        L.marker(e.latlng).addTo(map)
+            .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+        L.circle(e.latlng, radius).addTo(map);
+    }
+    
+
+    map.on('locationfound', onLocationFound);
+
+
+    function onLocationError(e) {
+        alert(e.message);
+    }
+    
+    map.on('locationerror', onLocationError);
+
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -120,31 +131,3 @@ val.then((value) => {
         zoomOffset: -1,
         accessToken: 'pk.eyJ1Ijoic2h1Ymhvc2VuIiwiYSI6ImNrd3FpbmNnZjA2bDQybm54c3pnNGg3NjEifQ._wepJJCubol0nCYzvEHjmg'
     }).addTo(map);
-
-
-    var greenIcon = L.icon({
-        iconUrl: './images/icon-location.svg',
-        iconSize: [45, 56], // size of the icon
-        shadowSize: [50, 64], // size of the shadow
-        iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-        shadowAnchor: [4, 62],  // the same for the shadow
-        popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
-    });
-
-    var marker = L.marker([a, b], { icon: greenIcon }).addTo(map);
-
-    var popup = L.popup();
-
-    function onMapClick(e) {
-        popup // method chaining is happening here
-            .setLatLng(e.latlng) // e is the evetn that happened and .latlng is the porperty on that event.
-            .setContent("You clicked the map at " + e.latlng.toString())
-            .openOn(map);
-    }
-
-    map.on('click', onMapClick);
-
-
-}).catch((err) => {
-    console.log('An Unexpected Error has occured', err.isAxiosError)
-})
