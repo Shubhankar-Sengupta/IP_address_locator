@@ -115,10 +115,11 @@ function Settings_card_timings(obj, value) {
     obj.innerHTML = value;
 }
 
+
 function fetch_data(info) {
 
-
     const main_object = {
+
         a: info.data.location.lat,
         b: info.data.location.lng,
         c: info.data.ip,
