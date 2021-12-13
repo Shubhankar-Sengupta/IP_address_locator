@@ -69,36 +69,38 @@ btn.addEventListener('click', async (evt) => {
 
     const match_ip =  input.value.match(ipformat);
 
-    if (match_domain) {
 
-        const info = await axios.get(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T&domain=${input.value}`);
+    async function get_from_input_data(url, config) {
+        
+        const info = await axios.get(url, config);
         const data = fetch_data(info);
         const [lt, lng] =  data;
         map.panTo([lt,lng]);
         marker.setLatLng([lt,lng]);
+    }
+
+    if (match_domain) {
+
+        const inputs_1 = {params: { domain:input.value }};
+        get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_1);
 
     }
 
     else if (match_ip) {
 
-        const info = await axios.get(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T&ipAddress=${input.value}`);
-        
-        const data = fetch_data(info);
-        const [lt, lng] =  data;
-        map.panTo([lt,lng]);
-        marker.setLatLng([lt,lng]);
-
+        const inputs_2 = {params: { ipAddress:input.value }};
+        get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_2);
     }
 
-        else if (input.value === "") {
-            alert("Please enter something valid!!");
-            return false;
-        }
+    else if (input.value === "") {
+        alert("Please enter something valid!!");
+        return false;
+    }
 
-        else {
-            alert("You have entered an invalid Domain or IP address!");
-            return false;
-        }
+    else {
+        alert("You have entered an invalid Domain or IP address!");
+        return false;
+    }
 
 
 });
