@@ -34,7 +34,7 @@ lat_lng.then((value) => {
     const access_token = 'pk.eyJ1Ijoic2h1Ymhvc2VuIiwiYSI6ImNrd3FpbmNnZjA2bDQybm54c3pnNGg3NjEifQ._wepJJCubol0nCYzvEHjmg'; // mapbox access token.
 
 
-    const tile = L.tileLayer(url, {attribution: attribution, maxZoom: 18, id: id, tileSize: 512, zoomOffset: -1, accessToken: access_token}).addTo(map);
+    const tile = L.tileLayer(url, {attribution: attribution, maxZoom: 18, id: id, tileSize: 512, zoomOffset: -1, accessToken: access_token, detectRetina:true}).addTo(map);
 
 
     //Custom icon.
@@ -48,20 +48,24 @@ lat_lng.then((value) => {
     // Creation of marker object.
     const marker  = L.marker([lat, lng], {icon:black_icon}).addTo(map);
 
+    // tooltip object.
+    // const tooltip =  L.tooltip({offset:[lat,lng]});
+    // tooltip.addTo(map);
 
+    
+btn.addEventListener('click', async (evt) => {
 
     // regex format using the RegExp constructor we create a new object that we store in the ipformat variable.
 
     // two params that we enter fist is the search pattern and the second one is the flag that we will use and it will mostly be the global one hence g as a type string.
-
-
-btn.addEventListener('click', async (evt) => {
-
-    // input.value will be a string and match is a method that we can use on that string.
+    
 
     const ipformat = new RegExp(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/, "g")
 
     const domain_format =  new RegExp(/^([a-zA-Z-_$@+0-9]+)\.([a-z]{2,3})$/, 'g'); // it makes a global match.
+
+
+    // input.value will be a string and match is a method that we can use on that string.
 
     //match method returns an array.
 
