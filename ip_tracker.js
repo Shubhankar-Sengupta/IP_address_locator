@@ -111,20 +111,28 @@ btn.addEventListener('click', async (evt) => {
 })
 
 
+function Settings_card_timings(obj, value) {
+    obj.innerHTML = value;
+}
+
 function fetch_data(info) {
 
-    const lat = info.data.location.lat;
-    const lng = info.data.location.lng;
+    const main_object = {
+        a: info.data.location.lat,
+        b: info.data.location.lng,
+        c: info.data.ip,
+        d: info.data.location.region,
+        e: info.data.location.timezone,
+        f: info.data.isp
+    }
 
-    const ip_addr = info.data.ip;
-    const region = info.data.location.region;
-    const time_zone = info.data.location.timezone;
-    const isp = info.data.isp;
+    const {a:lat, b:lng, c:ip_addr, d:region, e:time_zone, f:isp} = main_object; // Destructuring object with custom names.
 
-    ip.innerHTML = ip_addr;
-    loc.innerHTML = region;
-    time.innerHTML = `UTC ${time_zone}`;
-    is.innerHTML = isp;
+    Settings_card_timings(ip, ip_addr);
+    Settings_card_timings(loc, region);
+    Settings_card_timings(is, isp);
+    Settings_card_timings(time, `UTC ${time_zone}`);
+
     return [lat, lng];
 
 }
