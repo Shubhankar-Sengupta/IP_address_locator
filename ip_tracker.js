@@ -117,6 +117,7 @@ function Settings_card_timings(obj, value) {
 
 function fetch_data(info) {
 
+
     const main_object = {
         a: info.data.location.lat,
         b: info.data.location.lng,
@@ -136,6 +137,7 @@ function fetch_data(info) {
     return [lat, lng];
 
 }
+
 
 
 
