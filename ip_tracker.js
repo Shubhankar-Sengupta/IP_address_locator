@@ -13,22 +13,8 @@ const input = document.querySelector('.input-group input');
 async function geoLocation() {
 
     const info = await axios.get(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`); // gets converted into JS object automatically.
-
-    const lat = info.data.location.lat;
-    const lng = info.data.location.lng;
-
-
-    const ip_addr = info.data.ip;
-    const region = info.data.location.region;
-    const time_zone = info.data.location.timezone;
-    const isp = info.data.isp;
-
-    ip.innerHTML = ip_addr;
-    loc.innerHTML = region;
-    time.innerHTML = `UTC ${time_zone}`;
-    is.innerHTML = isp;
-
-    return [lat, lng]; // it is returned as a value of the Promise Object and we capture it with then() which accpets a callback.
+    return fetch_data(info);
+    // it is returned as a value of the Promise Object and we capture it with then() which accpets a callback.
 }
 
 // returns the latitude and the longitude.
@@ -86,14 +72,21 @@ btn.addEventListener('click', async (evt) => {
     if (match_domain) {
 
         const info = await axios.get(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T&domain=${input.value}`);
-        fetch_data(info);
+        const data = fetch_data(info);
+        const [lt, lng] =  data;
+        map.panTo([lt,lng]);
+        marker.setLatLng([lt,lng]);
 
     }
 
     else if (match_ip) {
 
         const info = await axios.get(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T&ipAddress=${input.value}`);
-        fetch_data(info);
+        
+        const data = fetch_data(info);
+        const [lt, lng] =  data;
+        map.panTo([lt,lng]);
+        marker.setLatLng([lt,lng]);
 
     }
 
@@ -109,13 +102,17 @@ btn.addEventListener('click', async (evt) => {
 
 
 });
+    
+
+}).catch((err) => {
+    alert("Sorry unable to process", err);
+})
 
 
 function fetch_data(info) {
 
     const lat = info.data.location.lat;
     const lng = info.data.location.lng;
-
 
     const ip_addr = info.data.ip;
     const region = info.data.location.region;
@@ -126,15 +123,9 @@ function fetch_data(info) {
     loc.innerHTML = region;
     time.innerHTML = `UTC ${time_zone}`;
     is.innerHTML = isp;
+    return [lat, lng];
 
-    map.panTo([lat,lng]);
-    marker.setLatLng([lat,lng]);
 }
-    
-
-}).catch((err) => {
-    alert("Sorry unable to process", err);
-})
 
 
 
