@@ -26,7 +26,7 @@ lat_lng.then((value) => {
 
     // creation of map object
 
-    const map = L.map('mymap', { zoomControl:false,  attributionControl:false }).setView([lat, lng], 13);
+    const map = L.map('mymap', { zoomControl:false,  attributionControl:false, dragging:false}).setView([lat, lng], 13);
     const url =  'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}';
 
     const attribution =  'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
@@ -47,13 +47,18 @@ lat_lng.then((value) => {
 
     // Creation of marker object.
     const marker  = L.marker([lat, lng], {icon:black_icon}).addTo(map);
+    marker.bindPopup(`You are here: ${lat,lng}`).openPopup();
 
     // marker moveEvent.
 
     function move_marker_event() {
         marker.once('move', (evt) => {
             alert(`moved ${evt.latlng}`);
+            marker
+            .bindPopup(`You are here: ${evt.latlng}`)
+            .openPopup();
         })
+
     }
 
     // executing the function.
@@ -177,9 +182,11 @@ function fetch_data(info) {
 
 
 
+// refreshing the input value.
 
 function refresh() {
     input.value = "";
 }
 
+// onload() function.
 window.onload = refresh;
