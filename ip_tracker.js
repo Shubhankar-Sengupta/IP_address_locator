@@ -34,7 +34,7 @@ lat_lng.then((value) => {
     const access_token = 'pk.eyJ1Ijoic2h1Ymhvc2VuIiwiYSI6ImNrd3FpbmNnZjA2bDQybm54c3pnNGg3NjEifQ._wepJJCubol0nCYzvEHjmg'; // mapbox access token.
 
 
-    const tile = L.tileLayer(url, {attribution: attribution, maxZoom: 18, id: id, tileSize: 512, zoomOffset: -1, accessToken: access_token, detectRetina:true}).addTo(map);
+    const tile = L.tileLayer(url, {attribution: attribution, maxZoom: 18, id: id, tileSize: 512, zoomOffset: -1, accessToken: access_token}).addTo(map);
 
 
     //Custom icon.
@@ -48,9 +48,6 @@ lat_lng.then((value) => {
     // Creation of marker object.
     const marker  = L.marker([lat, lng], {icon:black_icon}).addTo(map);
 
-    // tooltip object.
-    // const tooltip =  L.tooltip({offset:[lat,lng]});
-    // tooltip.addTo(map);
 
     
 btn.addEventListener('click', async (evt) => {
@@ -83,29 +80,29 @@ btn.addEventListener('click', async (evt) => {
         marker.setLatLng([lt,lng]);
     }
 
-    if (match_domain) {
+        if (match_domain) {
+            const inputs_1 = {params: { domain:input.value }};
+            get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_1);  
 
-        const inputs_1 = {params: { domain:input.value }};
-        get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_1);
+        }
 
-    }
+    
 
-    else if (match_ip) {
+        else if (match_ip) {
 
-        const inputs_2 = {params: { ipAddress:input.value }};
-        get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_2);
-    }
+            const inputs_2 = {params: { ipAddress:input.value }};
+            get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_2);
+        }
 
-    else if (input.value === "") {
-        alert("Please enter something valid!!");
-        return false;
-    }
+        else if (input.value === "") {
+            alert("Please enter something valid!!");
+            return false;
+        }
 
-    else {
-        alert("You have entered an invalid Domain or IP address!");
-        return false;
-    }
-
+        else {
+            alert("You have entered an invalid Domain or IP address!");
+            return false;
+        }
 
 });
     
