@@ -47,16 +47,23 @@ lat_lng.then((value) => {
 
     // Creation of marker object.
     const marker  = L.marker([lat, lng], {icon:black_icon}).addTo(map);
-    marker.bindPopup(`You are here: ${lat,lng}`).openPopup();
+    marker.bindPopup(`You are here: ${[lat, lng]}`).openPopup();
+
 
     // marker moveEvent.
 
     function move_marker_event() {
+
         marker.once('move', (evt) => {
+
+            const radius = evt.accuracy;
+
             alert(`moved ${evt.latlng}`);
             marker
             .bindPopup(`You are here: ${evt.latlng}`)
             .openPopup();
+
+            L.circle(evt.latlng, radius).addTo(map);
         })
 
     }
@@ -80,10 +87,14 @@ lat_lng.then((value) => {
 
     }
 
-
-    map.on('click', onMapClick);
+    map.on('locationfound', onMapClick);
     
 
+    function onLocationError(e) {
+        alert(e.message);
+    }
+    
+    map.on('locationerror', onLocationError);
 
 
     
