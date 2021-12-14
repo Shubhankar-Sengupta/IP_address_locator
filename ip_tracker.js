@@ -33,7 +33,7 @@ lat_lng.then((value) => {
     const id = 'mapbox/streets-v9';
     const access_token = 'pk.eyJ1Ijoic2h1Ymhvc2VuIiwiYSI6ImNrd3FpbmNnZjA2bDQybm54c3pnNGg3NjEifQ._wepJJCubol0nCYzvEHjmg'; // mapbox access token.
 
-
+    // created tile for the map.
     const tile = L.tileLayer(url, {attribution: attribution, maxZoom: 18, id: id, tileSize: 512, zoomOffset: -1, accessToken: access_token}).addTo(map);
 
 
@@ -47,6 +47,38 @@ lat_lng.then((value) => {
 
     // Creation of marker object.
     const marker  = L.marker([lat, lng], {icon:black_icon}).addTo(map);
+
+    // marker moveEvent.
+
+    function move_marker_event() {
+        marker.once('move', (evt) => {
+            alert(`moved ${evt.latlng}`);
+        })
+    }
+
+    // executing the function.
+    move_marker_event();
+
+
+    // Popup events
+
+    function onMapClick(evt) {
+
+        // Creation of Popup object.
+        const popup = L.popup();
+
+        //chained methods.
+        popup
+        .setLatLng(evt.latlng)
+        .setContent(`You clicked at: ${evt.latlng}`)
+        .openOn(map)
+
+    }
+
+
+    map.on('click', onMapClick);
+    
+
 
 
     
@@ -78,11 +110,14 @@ btn.addEventListener('click', async (evt) => {
         const [lt, lng] =  data;
         map.panTo([lt,lng]);
         marker.setLatLng([lt,lng]);
+
+        // marker moveEvent.
+        move_marker_event();
     }
 
         if (match_domain) {
             const inputs_1 = {params: { domain:input.value }};
-            get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_1);  
+            get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_1); 
 
         }
 
