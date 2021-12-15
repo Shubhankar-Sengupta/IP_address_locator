@@ -87,14 +87,7 @@ lat_lng.then((value) => {
 
     }
 
-    map.on('locationfound', onMapClick);
-    
-
-    function onLocationError(e) {
-        alert(e.message);
-    }
-    
-    map.on('locationerror', onLocationError);
+    map.on('click', onMapClick);
 
 
     

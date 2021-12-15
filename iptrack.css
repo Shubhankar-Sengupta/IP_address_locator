@@ -92,6 +92,8 @@ h1 {
 
 .card-body > * {
     display: inline-block;
+    border-right: 1px solid rgba(0, 0, 0, .17);
+    padding: 1.5em;
 }
 
 .btn-1 {
@@ -114,6 +116,10 @@ h1 {
         align-items: center;
     }
 
+    .card-body > * {
+        border: none;
+    }
+
     .cntr-setting {
         text-align: center;
     }
@@ -127,14 +133,65 @@ h1 {
         margin-right: 0;
     }
 
+    .sole-h1 {
+        font-size: 1.625em;
+    }
+
 }
 
-@media (min-width:751.2px) and (max-width:1069px) {
-    
-    .card {
-        position: absolute;
+
+@media (min-width:768px) and (max-width:1400px) {
+
+    .card{
+        width: 90%;
+    }
+
+    .ip, .location,.timezone, .isp {
+        font-size: 1.25em;
+    }
+
+    .card-body {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        bottom: -150px;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    
+}
+
+
+@media (min-width:891px) and (max-width:1037px) {
+    .ip, .location,.timezone, .isp {
+        font-size: 1em;
+    }
+}
+
+@media (min-width:752px) and (max-width:890px) {
+    .card {
+        bottom: -80px;
+    }
+
+    .ip, .location,.timezone, .isp {
+        font-size: 1em;
+    }
+}
+
+@media (min-width:768px) and (max-width:890px) { 
+    .card {
+        width: 95%;
+    } 
+}
+
+@media(width:768px) {
+
+    .card {
+        width: 50vh;
+    }
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        top: 60px;
+    }
+
+    .col-md-5 {
+        flex-grow: 1;
     }
 }
