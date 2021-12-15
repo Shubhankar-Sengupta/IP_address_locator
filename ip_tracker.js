@@ -131,10 +131,8 @@ btn.addEventListener('click', async (evt) => {
     }
 
         if (match_domain) {
-
             const inputs_1 = {params: { domain:input.value }};
             get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_1);
-           
         }
 
     
