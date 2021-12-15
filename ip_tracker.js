@@ -25,15 +25,26 @@ lat_lng.then((value) => {
 
     // creation of map object
 
-    const map = L.map('mymap', { zoomControl:false,  attributionControl:false, dragging:false}).setView([lat, lng], 13);
-    const url =  'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}';
+    const map = L.map('mymap', {
+        zoomControl: false,
+        attributionControl: false,
+        dragging: false
+    }).setView([lat, lng], 13);
+    const url = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}';
 
-    const attribution =  'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+    const attribution = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
     const id = 'mapbox/streets-v9';
     const access_token = 'pk.eyJ1Ijoic2h1Ymhvc2VuIiwiYSI6ImNrd3FpbmNnZjA2bDQybm54c3pnNGg3NjEifQ._wepJJCubol0nCYzvEHjmg'; // mapbox access token.
 
     // created tile for the map.
-    const tile = L.tileLayer(url, {attribution: attribution, maxZoom: 18, id: id, tileSize: 512, zoomOffset: -1, accessToken: access_token}).addTo(map);
+    const tile = L.tileLayer(url, {
+        attribution: attribution,
+        maxZoom: 18,
+        id: id,
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: access_token
+    }).addTo(map);
 
 
     //Custom icon.
@@ -45,7 +56,9 @@ lat_lng.then((value) => {
 
 
     // Creation of marker object.
-    const marker  = L.marker([lat, lng], {icon:black_icon}).addTo(map);
+    const marker = L.marker([lat, lng], {
+        icon: black_icon
+    }).addTo(map);
     marker.bindPopup(`IP Location: ${[lat, lng]}`).openPopup();
 
 
@@ -59,8 +72,8 @@ lat_lng.then((value) => {
 
             alert(`moved ${evt.latlng}`);
             marker
-            .bindPopup(`IP Location: ${evt.latlng}`)
-            .openPopup();
+                .bindPopup(`IP Location: ${evt.latlng}`)
+                .openPopup();
 
             L.circle(evt.latlng, radius).addTo(map);
         })
@@ -80,80 +93,90 @@ lat_lng.then((value) => {
 
         //chained methods.
         popup
-        .setLatLng(evt.latlng)
-        .setContent(`You clicked at: ${evt.latlng}`)
-        .openOn(map)
+            .setLatLng(evt.latlng)
+            .setContent(`You clicked at: ${evt.latlng}`)
+            .openOn(map)
 
     }
 
     map.on('click', onMapClick);
 
 
-    
-btn.addEventListener('click', async (evt) => {
 
-    // regex format using the RegExp constructor we create a new object that we store in the ipformat variable.
+    btn.addEventListener('click', async (evt) => {
 
-    // two params that we enter fist is the search pattern and the second one is the flag that we will use and it will mostly be the global one hence g as a type string.
-    
+        // regex format using the RegExp constructor we create a new object that we store in the ipformat variable.
 
-    const ipformat = new RegExp(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/, "g")
-
-    const domain_format =  new RegExp(/^([a-zA-Z-_$@+0-9]+)\.([a-z]{2,3})$/, 'g'); // it makes a global match.
+        // two params that we enter fist is the search pattern and the second one is the flag that we will use and it will mostly be the global one hence g as a type string.
 
 
-    // input.value will be a string and match is a method that we can use on that string.
+        const ipformat = new RegExp(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/, "g")
 
-    //match method returns an array.
-
-    const match_domain =  input.value.match(domain_format);
-
-    const match_ip =  input.value.match(ipformat);
+        const domain_format = new RegExp(/^([a-zA-Z-_$@+0-9]+)\.([a-z]{2,3})$/, 'g'); // it makes a global match.
 
 
-    async function get_from_input_data(url, config) {
+        // input.value will be a string and match is a method that we can use on that string.
 
-        try {
-            const info = await axios.get(url, config);
-            const data = fetch_data(info);
-            const [lt, lng] =  data;
-            map.panTo([lt,lng]);
-            marker.setLatLng([lt,lng]);
-        }
+        //match method returns an array.
+
+        const match_domain = input.value.match(domain_format);
+
+        const match_ip = input.value.match(ipformat);
+
         
-        catch (err) {
-            alert("Oops!! Invalid URL entered");
-            return false;
-        }
+            async function get_from_input_data(url, config) {
 
-        // marker moveEvent.
-        move_marker_event();
-    }
+                try {
+                    const info = await axios.get(url, config);
+                    const data = fetch_data(info);
+                    const [lt, lng] = data;
+                    map.panTo([lt, lng]);
+                    marker.setLatLng([lt, lng]);
+                }
+                
+                catch (err) {
+                    alert("Oops!! Invalid URL entered");
+                    return false;
+                }
+
+                // marker moveEvent.
+                move_marker_event();
+            }
+        
 
         if (match_domain) {
-            const inputs_1 = {params: { domain:input.value }};
+
+            const inputs_1 = {
+                params: {
+                    domain: input.value
+                }
+            };
             get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_1);
-        }
-
-    
-
+        } 
+        
         else if (match_ip) {
-            const inputs_2 = {params: { ipAddress:input.value }};
-            get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_2);
-        }
 
+            const inputs_2 = {
+                params: {
+                    ipAddress: input.value
+                }
+            };
+
+            get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_2);
+        } 
+        
         else if (input.value === "") {
             alert("Please enter something valid!!");
             return false;
-        }
-
+        } 
+        
         else {
             alert("You have entered an invalid Domain or IP address!");
             return false;
         }
 
-});
-    
+    });
+
 
 }).catch((err) => {
     alert("Sorry unable to process", err);
@@ -177,7 +200,14 @@ function fetch_data(info) {
         f: info.data.isp
     }
 
-    const {a:lat, b:lng, c:ip_addr, d:region, e:time_zone, f:isp} = main_object; // Destructuring object with custom names.
+    const {
+        a: lat,
+        b: lng,
+        c: ip_addr,
+        d: region,
+        e: time_zone,
+        f: isp
+    } = main_object; // Destructuring object with custom names.
 
     Settings_card_timings(ip, ip_addr);
     Settings_card_timings(loc, region);
