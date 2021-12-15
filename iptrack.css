@@ -101,6 +101,9 @@ h1 {
 }
 
 
+/*Media Queries*/
+
+
 @media screen and  (max-width:768px) {
 
     .card {
@@ -159,8 +162,13 @@ h1 {
 
 
 @media (min-width:891px) and (max-width:1037px) {
+
     .ip, .location,.timezone, .isp {
         font-size: 1em;
+    }
+
+    .card {
+        bottom: -90px;
     }
 }
 

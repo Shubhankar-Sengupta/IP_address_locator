@@ -5,8 +5,7 @@ const loc = document.querySelector('.location');
 const time = document.querySelector('.timezone');
 const is = document.querySelector('.isp');
 const input = document.querySelector('.input-group input');
-
-
+const alert_warn = document.querySelector('.alert-warning');
 
 // manipulating them.
 
@@ -47,7 +46,7 @@ lat_lng.then((value) => {
 
     // Creation of marker object.
     const marker  = L.marker([lat, lng], {icon:black_icon}).addTo(map);
-    marker.bindPopup(`You are here: ${[lat, lng]}`).openPopup();
+    marker.bindPopup(`IP Location: ${[lat, lng]}`).openPopup();
 
 
     // marker moveEvent.
@@ -60,7 +59,7 @@ lat_lng.then((value) => {
 
             alert(`moved ${evt.latlng}`);
             marker
-            .bindPopup(`You are here: ${evt.latlng}`)
+            .bindPopup(`IP Location: ${evt.latlng}`)
             .openPopup();
 
             L.circle(evt.latlng, radius).addTo(map);
