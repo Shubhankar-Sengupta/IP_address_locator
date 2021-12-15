@@ -216,6 +216,21 @@ lat_lng.then((value) => {
                 get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp5);
             }
 
+
+            else if (str.substr(-1).includes('/')) {
+
+                const val5 = str.slice(0, -1);
+
+                const inp6 = {
+                    params: {
+                        domain: val5
+                    }
+                }
+
+                get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp6);
+
+            }
+
             else {
 
                 const inputs_1 = {
