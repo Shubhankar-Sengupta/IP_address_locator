@@ -70,7 +70,7 @@ lat_lng.then((value) => {
 
             const radius = evt.accuracy;
 
-            alert(`moved ${evt.latlng}`);
+            alert(`Success!! moved ${evt.latlng}`);
             marker
                 .bindPopup(`IP Location: ${evt.latlng}`)
                 .openPopup();
@@ -112,7 +112,7 @@ lat_lng.then((value) => {
 
         const ipformat = new RegExp(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/, "g")
 
-        const domain_format = new RegExp(/^([a-zA-Z-_$@+0-9]+)\.([a-z]{2,3})$/, 'g'); // it makes a global match.
+        const domain_format = new RegExp(/^((https|ftp|http):\/\/|([a-zA-Z-_$@+~`'0-9]+)|(www\.|[a-zA-Z-_$@+~`'0-9]\.))+\.([a-z]{2,3})(\/?)$/, 'g'); // it makes a global match.
 
 
         // input.value will be a string and match is a method that we can use on that string.
@@ -135,7 +135,7 @@ lat_lng.then((value) => {
                 }
                 
                 catch (err) {
-                    alert("Oops!! Invalid URL entered");
+                    alert("Oops!! Invalid URL entered. You can try in Https, ftp or Http format.");
                     return false;
                 }
 
@@ -146,12 +146,88 @@ lat_lng.then((value) => {
 
         if (match_domain) {
 
-            const inputs_1 = {
-                params: {
-                    domain: input.value
+            const str = input.value;
+
+            if (str.includes('https')) {
+
+                const val = str.slice(8);
+
+                const inp1 = {
+                    params: {
+                        domain: val
+                    }
                 }
-            };
-            get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_1);
+
+                get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp1);
+
+            }
+
+            else if (str.includes('http')) {
+
+                const val1 = str.slice(7);
+
+                const inp2 = {
+                    params: {
+                        domain: val1
+                    }
+                }
+
+                get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp2);
+            }
+
+            else if (str.includes('ftp')) {
+
+                const val2 = str.slice(6);
+
+                const inp3 = {
+                    params: {
+                        domain: val2
+                    }
+                }
+
+                get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp3);
+
+            }
+
+            else if (str.includes('www')) {
+
+                const val3 = str.slice(4);
+
+                const inp4 = {
+                    params: {
+                        domain: val3
+                    }
+                }
+
+                get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp4);
+
+            }
+
+            else if (str.includes('www') && str.includes('https')) {
+
+                const val4 = str.slice(12);
+
+                const inp5 = {
+                    params: {
+                        domain: val4
+                    }
+                }
+
+                get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp5);
+            }
+
+            else {
+
+                const inputs_1 = {
+                    params: {
+                        domain: input.value
+                    }
+                };
+                get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_1);
+
+            }
+
+            
         } 
         
         else if (match_ip) {
