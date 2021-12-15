@@ -112,27 +112,34 @@ btn.addEventListener('click', async (evt) => {
 
 
     async function get_from_input_data(url, config) {
+
+        try {
+            const info = await axios.get(url, config);
+            const data = fetch_data(info);
+            const [lt, lng] =  data;
+            map.panTo([lt,lng]);
+            marker.setLatLng([lt,lng]);
+        }
         
-        const info = await axios.get(url, config);
-        const data = fetch_data(info);
-        const [lt, lng] =  data;
-        map.panTo([lt,lng]);
-        marker.setLatLng([lt,lng]);
+        catch (err) {
+            alert("Oops!! Invalid URL entered");
+            return false;
+        }
 
         // marker moveEvent.
         move_marker_event();
     }
 
         if (match_domain) {
-            const inputs_1 = {params: { domain:input.value }};
-            get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_1); 
 
+            const inputs_1 = {params: { domain:input.value }};
+            get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_1);
+           
         }
 
     
 
         else if (match_ip) {
-
             const inputs_2 = {params: { ipAddress:input.value }};
             get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_2);
         }
