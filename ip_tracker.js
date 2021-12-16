@@ -5,7 +5,6 @@ const loc = document.querySelector('.location');
 const time = document.querySelector('.timezone');
 const is = document.querySelector('.isp');
 const input = document.querySelector('.input-group input');
-const alert_warn = document.querySelector('.alert-warning');
 
 // manipulating them.
 
