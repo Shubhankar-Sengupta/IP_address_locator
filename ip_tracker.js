@@ -131,6 +131,7 @@ lat_lng.then((value) => {
                 const [lt, lng] = data;
                 map.panTo([lt, lng]);
                 marker.setLatLng([lt, lng]);
+                
             } catch (err) {
                 alert("Oops!! Invalid URL entered. You can try in Https, ftp or Http format.");
                 return false;
