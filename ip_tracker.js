@@ -126,11 +126,6 @@ lat_lng.then((value) => {
         async function get_from_input_data(url, config) {
 
             try {
-                
-                if(err.request.status === '400') {
-                    return false;
-                }
-
                 const info = await axios.get(url, config);
                 const data = fetch_data(info);
                 const [lt, lng] = data;
