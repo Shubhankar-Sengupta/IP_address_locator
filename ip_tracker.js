@@ -165,7 +165,6 @@ lat_lng.then((value) => {
 
                     const val = str.slice(8);
 
-
                     const inp1 = {
                         params: {
                             domain: val
