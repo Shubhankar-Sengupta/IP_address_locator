@@ -123,26 +123,24 @@ lat_lng.then((value) => {
 
         const match_ip = input.value.match(ipformat);
 
-        
-            async function get_from_input_data(url, config) {
 
-                try {
-                    const info = await axios.get(url, config);
-                    const data = fetch_data(info);
-                    const [lt, lng] = data;
-                    map.panTo([lt, lng]);
-                    marker.setLatLng([lt, lng]);
-                }
-                
-                catch (err) {
-                    alert("Oops!! Invalid URL entered. You can try in Https, ftp or Http format.");
-                    return false;
-                }
+        async function get_from_input_data(url, config) {
 
-                // marker moveEvent.
-                move_marker_event();
+            try {
+                const info = await axios.get(url, config);
+                const data = fetch_data(info);
+                const [lt, lng] = data;
+                map.panTo([lt, lng]);
+                marker.setLatLng([lt, lng]);
+            } catch (err) {
+                alert("Oops!! Invalid URL entered. You can try in Https, ftp or Http format.");
+                return false;
             }
-        
+
+            // marker moveEvent.
+            move_marker_event();
+        }
+
 
         if (match_domain) {
 
@@ -150,74 +148,151 @@ lat_lng.then((value) => {
 
             if (str.includes('https')) {
 
-                const val = str.slice(8);
+                if (str.substr(-1).includes('/')) {
 
-                const inp1 = {
-                    params: {
-                        domain: val
+                    const val = str.slice(8, -1);
+
+                    const inp1 = {
+                        params: {
+                            domain: val
+                        }
                     }
+
+                    get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp1);
+
+
+                } else {
+
+                    const val = str.slice(8);
+
+
+                    const inp1 = {
+                        params: {
+                            domain: val
+                        }
+                    }
+
+                    get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp1);
                 }
 
-                get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp1);
 
-            }
 
-            else if (str.includes('http')) {
+            } else if (str.includes('http')) {
 
-                const val1 = str.slice(7);
+                if (str.substr(-1).includes('/')) {
 
-                const inp2 = {
-                    params: {
-                        domain: val1
+                    const val1 = str.slice(7, -1);
+
+                    const inp2 = {
+                        params: {
+                            domain: val1
+                        }
                     }
+
+                    get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp2);
+
+
+                } else {
+                    const val1 = str.slice(7);
+
+                    const inp2 = {
+                        params: {
+                            domain: val1
+                        }
+                    }
+
+                    get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp2);
                 }
 
-                get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp2);
-            }
 
-            else if (str.includes('ftp')) {
+            } else if (str.includes('ftp')) {
 
-                const val2 = str.slice(6);
 
-                const inp3 = {
-                    params: {
-                        domain: val2
+                if (str.substr(-1).includes('/')) {
+
+                    const val2 = str.slice(6, -1);
+
+                    const inp3 = {
+                        params: {
+                            domain: val2
+                        }
                     }
+
+                    get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp3);
+
+
+                } else {
+                    const val2 = str.slice(6);
+
+                    const inp3 = {
+                        params: {
+                            domain: val2
+                        }
+                    }
+
+                    get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp3);
                 }
 
-                get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp3);
 
-            }
 
-            else if (str.includes('www')) {
+            } else if (str.includes('www')) {
 
-                const val3 = str.slice(4);
+                if (str.substr(-1).includes('/')) {
 
-                const inp4 = {
-                    params: {
-                        domain: val3
+                    const val3 = str.slice(4, -1);
+
+                    const inp4 = {
+                        params: {
+                            domain: val3
+                        }
                     }
+
+                    get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp4);
+
+
+                } else {
+                    const val3 = str.slice(4);
+
+                    const inp4 = {
+                        params: {
+                            domain: val3
+                        }
+                    }
+
+                    get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp4);
                 }
 
-                get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp4);
 
-            }
 
-            else if (str.includes('www') && str.includes('https')) {
+            } else if (str.includes('www') && str.includes('https')) {
 
-                const val4 = str.slice(12);
+                if (str.substr(-1).includes('/')) {
 
-                const inp5 = {
-                    params: {
-                        domain: val4
+                    const val4 = str.slice(12, -1);
+
+                    const inp5 = {
+                        params: {
+                            domain: val4
+                        }
                     }
+
+                    get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp5);
+
+
+                } else {
+                    const val4 = str.slice(12);
+
+                    const inp5 = {
+                        params: {
+                            domain: val4
+                        }
+                    }
+
+                    get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp5);
                 }
 
-                get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp5);
-            }
 
-
-            else if (str.substr(-1).includes('/')) {
+            } else if (str.substr(-1).includes('/')) {
 
                 const val5 = str.slice(0, -1);
 
@@ -229,9 +304,7 @@ lat_lng.then((value) => {
 
                 get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inp6);
 
-            }
-
-            else {
+            } else {
 
                 const inputs_1 = {
                     params: {
@@ -242,10 +315,8 @@ lat_lng.then((value) => {
 
             }
 
-            
-        } 
-        
-        else if (match_ip) {
+
+        } else if (match_ip) {
 
             const inputs_2 = {
                 params: {
@@ -254,14 +325,10 @@ lat_lng.then((value) => {
             };
 
             get_from_input_data(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_RKNbx052tbn7KTfMkIEX3W5Fo3Z1T`, inputs_2);
-        } 
-        
-        else if (input.value === "") {
+        } else if (input.value === "") {
             alert("Please enter something valid!!");
             return false;
-        } 
-        
-        else {
+        } else {
             alert("You have entered an invalid Domain or IP address!");
             return false;
         }
